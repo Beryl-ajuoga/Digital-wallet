@@ -45,7 +45,7 @@ class Transaction (models.Model):
              
 class Card(models.Model):
         date_issued = models.DateTimeField(default=datetime.now)
-        CVV_security_code = models.PositiveSmallIntegerField()
+        cvv_security_code = models.PositiveSmallIntegerField()
         signature = models.ImageField(upload_to='profile/',null=True)
         card_status = models.CharField(max_length=100,null=True)
         account = models.ForeignKey(Account,on_delete=models.CASCADE,related_name='Card_Account')
@@ -63,7 +63,6 @@ class Notification(models.Model):
         data_created = models.DateTimeField(default=datetime.now)
         is_active = models. BooleanField(default=False)
         receipt =  models.ForeignKey('Receipt',on_delete=models.CASCADE,related_name='Notification_receipt')
-        message = models.CharField(max_length=200,null=True)
         image = models.ImageField(upload_to='profile/',null=True)
         
 class Receipt(models.Model):
@@ -71,9 +70,8 @@ class Receipt(models.Model):
         transaction = models.ForeignKey(Transaction,on_delete=models.CASCADE,related_name='Reciept_transaction')
         file = models.FileField()
         date = models.DateTimeField(default=datetime.now)
-        receipt_file = models.FileField()
-    
-class Loan (models.Model):
+        
+class Loan(models.Model):
         amount = models.PositiveIntegerField()
         duration_in_month = models.CharField(max_length=12,null=True)
         status = models.CharField(max_length=40,null=True)
@@ -91,7 +89,7 @@ class Reward (models.Model):
         transation = models.ForeignKey('Transaction',on_delete=models.CASCADE,related_name='Reward_transaction')
     
 class Currency(models.Model):
-    Symbol=models.CharField(max_length=20,null=True)
+    symbol=models.CharField(max_length=20,null=True)
     name=models.CharField(max_length=20,null=True)
     country=models.CharField(max_length=20,null=True)
 
